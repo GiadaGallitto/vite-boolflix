@@ -17,11 +17,12 @@
         },
 
         methods: {
-            getMovie(searchedMovie){
-                const urlApi = (searchedMovie == "") ? `https://api.themoviedb.org/3/search/movie?api_key=d5997a9a3f571aa73cf4c8a72523ddf2&query=ritorno+al+futuro` : `https://api.themoviedb.org/3/search/movie?api_key=d5997a9a3f571aa73cf4c8a72523ddf2&query=${searchedMovie}`
+            getMovie(searchedMovie = "ritorno al futuro"){
+                const urlApi = `https://api.themoviedb.org/3/search/movie`
                 axios.get(urlApi, {
                     params: {
-                        title: searchedMovie,
+                        api_key : 'd5997a9a3f571aa73cf4c8a72523ddf2',
+                        query : searchedMovie
                     }
                 })
                 .then((response) => {
@@ -36,7 +37,7 @@
         },
 
         created (){
-            this.getMovie("");
+            this.getMovie();
         }
     }
 </script>
