@@ -46,7 +46,6 @@
 <style lang="scss" scoped>
   .main-container{
     width: 90%;
-    height: 1000px;
     margin: 2rem auto;
   }
   .grid-results{

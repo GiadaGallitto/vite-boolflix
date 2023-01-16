@@ -53,10 +53,11 @@
 <template>
   <div class="card-element col-4" @mouseover="hover = true" @mouseleave="hover = false">
     <img class="poster" :src="`https://image.tmdb.org/t/p/w342/${cover}`" alt="">
+
     <div v-if="hover" class="info">
       <ul>
         <li><h6>Titolo: </h6>{{ title }}</li>
-        <li><h6>Titolo originale: </h6>{{ originalTitle }}</li>
+        <li v-if="title != originalTitle"><h6>Titolo originale: </h6>{{ originalTitle }}</li>
         <li><img class="flag" :src="getImagePath(language)" ></li>
         <li><h6>Voto: </h6>        
           <div class="stars d-inline">
@@ -66,31 +67,32 @@
         </li>
         <li><h6>Overview: </h6>{{ overview }}</li>
       </ul>
-
     </div>
+
   </div>
 </template>
 
 <style lang="scss" scoped>
   .card-element{
     width: calc((100% / 5) - 3rem);
-    height: 100%;
     margin: 1.5rem 1.5rem;
     color: white;
+    position: relative;
+    // aspect-ratio: ;
     .poster{
-      width: 100%
+      width: 100%;
+      height: 100%;
     };
 
-    &:hover{
-      .poster{
-        display: none
-      }
-    }
     .info{
-      background-color: black;
+      background-color: rgba(0, 0, 0, 0.8);
       height: 100%;
+      margin: 0 0.7rem;
       padding: 1.5rem 0;
-      overflow: hidden;
+      overflow: auto;
+      position: absolute;
+      top: 0;
+      left: 0;
 
       ul{
         list-style-type: none;
