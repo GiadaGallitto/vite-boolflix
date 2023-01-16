@@ -42,12 +42,14 @@
       :originalTitle="movieElement.original_title"
       :language="movieElement.original_language"
       :vote="movieElement.vote_average"
+      :cover="movieElement.poster_path"
       />
       <CardComponent v-for="serieElement in series"
       :title="serieElement.name"
       :originalTitle="serieElement.original_name"
       :language="serieElement.original_language"
       :vote="serieElement.vote_average"
+      :cover="serieElement.poster_path"
       />
     </section>
   </div>

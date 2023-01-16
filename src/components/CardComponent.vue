@@ -15,12 +15,12 @@
         originalTitle: String,
         language: String,
         vote: String,
+        cover: String
       },
       methods: {
         getImagePath: function (img) {
           return new URL(`../assets/flag-img/${img}.png`, import.meta.url).href;
-        },
-        getImageCover()
+        }
       },
 
       }
@@ -28,16 +28,19 @@
 
 <template>
   <div class="card">
-    <img :src="" alt="">
+    <img class="poster" :src="`https://image.tmdb.org/t/p/w342/${cover}`" alt="">
     <h3>{{ title }}</h3>
     <h5>{{ originalTitle }}</h5>
-    <img :src="getImagePath(language)" >
+    <img class="flag" :src="getImagePath(language)" >
     <span>{{ vote }}</span>
   </div>
 </template>
 
 <style lang="scss">
-  img{
-    width: 10%;
+  .poster{
+    width: 20%
+  };
+  .flag{
+    width: 5%;
   }
 </style>
