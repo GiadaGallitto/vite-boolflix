@@ -49,7 +49,7 @@
     </script>
 
 <template>
-  <div class="card">
+  <div class="card-element col-4">
     <img class="poster" :src="`https://image.tmdb.org/t/p/w342/${cover}`" alt="">
     <h3>{{ title }}</h3>
     <h5>{{ originalTitle }}</h5>
@@ -61,14 +61,21 @@
   </div>
 </template>
 
-<style lang="scss">
-  .poster{
-    width: 20%
-  };
-  .flag{
-    width: 5%;
-  };
-  .stars i{
-    color: rgb(194, 194, 11);
+<style lang="scss" scoped>
+  .card-element{
+    width: calc((100% / 5) - 3rem);
+    margin: 1.5rem 1.5rem;
+    color: white;
+    .poster{
+      width: 100%
+    };
+
+    .flag{
+      width: 5%;
+    };
+
+    .stars i{
+      color: rgb(194, 194, 11);
+    }
   }
 </style>

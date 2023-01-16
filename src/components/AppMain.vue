@@ -8,7 +8,7 @@
       
       data(){
         return{
-          searchString : "",
+
         }
       },
 
@@ -17,26 +17,12 @@
         `series`
       ],
 
-      methods: {
-        searchMovie(string){
-          this.$emit(`searchMovie`, string)
-        },
-
-        searchSeries(string){
-          this.$emit(`searchSeries`, string)
-        }
-      }
     }
     </script>
 
 <template>
   <div class="main-container">
-    <section class="search-part">
-      <input placeholder="Scrivi la tua ricerca" type="text" v-model="searchString">
-      <button class="btn btn-primary ms-2" @click="searchMovie(searchString), searchSeries(searchString)">Clicca qui</button>
-    </section>
-  
-    <section class="grid-results">
+    <section class="grid-results row">
       <CardComponent v-for="movieElement in movies"
       :title="movieElement.title"
       :originalTitle="movieElement.original_title"
@@ -56,5 +42,12 @@
 </template>
 
 <style lang="scss" scoped>
-  
+  .main-container{
+    width: 90%;
+    margin: 2rem auto;
+  }
+  .grid-results{
+    display: flex;
+    flex-wrap: wrap;
+  }
 </style>

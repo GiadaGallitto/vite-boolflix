@@ -63,11 +63,11 @@
 <template>
     <div>
         <header>
-            <AppHeader />
+            <AppHeader @searchMovie="getMovie" @searchSeries="getSeries" />
         </header>
 
         <main>
-            <AppMain :movies="store.movieList" :series="store.seriesList" @searchMovie="getMovie" @searchSeries="getSeries" />
+            <AppMain :movies="store.movieList" :series="store.seriesList" />
         </main>
     </div>
 </template>
@@ -76,4 +76,8 @@
 @use "./styles/general.scss" as *;
 @use "./styles/partials/variables.scss" as *;
 @use "bootstrap/scss/bootstrap.scss" as *;
+
+body{
+    background-color: #141414;
+}
 </style>
