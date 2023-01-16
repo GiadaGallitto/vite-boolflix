@@ -1,11 +1,60 @@
 <script>
+    import AppHeader from "./components/AppHeader.vue";
+    import AppMain from "./components/AppMain.vue";
+    import { store } from "./store.js";
+    import axios from "axios";
 
+    export default{
+        data(){
+            return{
+                store,
+            }
+        },
+
+        components: {
+            AppHeader,
+            AppMain,
+        },
+
+        methods: {
+            getMovie(searchedMovie){
+                axios.get(`
+https://api.themoviedb.org/3/search/movie?api_key=d5997a9a3f571aa73cf4c8a72523ddf2&language=en-US&query=${searchedMovie}`, {
+                    params: {
+                        title: searchedMovie,
+                    }
+                })
+                .then((response) => {
+                    console.log(response.data.results);
+                    this.store.movieList = response.data;
+                    console.log(this.store.movieList)
+                })
+                .catch(function (error) {
+                    console.log(error);
+                })
+            }
+        },
+
+        created (){
+            this.getMovie("");
+        }
+    }
 </script>
 
 <template>
+    <div>
+        <header>
+            <AppHeader />
+        </header>
 
+        <main>
+            <AppMain :movies="store.movieList" @searchMovie="getMovie" />
+        </main>
+    </div>
 </template>
 
-<style>
-
+<style lang="scss">
+@use "./styles/general.scss" as *;
+@use "./styles/partials/variables.scss" as *;
+@use "bootstrap/scss/bootstrap.scss" as *;
 </style>
