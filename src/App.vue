@@ -18,15 +18,15 @@
 
         methods: {
             getMovie(searchedMovie){
-                axios.get(`
-https://api.themoviedb.org/3/search/movie?api_key=d5997a9a3f571aa73cf4c8a72523ddf2&language=en-US&query=${searchedMovie}`, {
+                const urlApi = (searchedMovie == "") ? `https://api.themoviedb.org/3/search/movie?api_key=d5997a9a3f571aa73cf4c8a72523ddf2&query=ritorno+al+futuro` : `https://api.themoviedb.org/3/search/movie?api_key=d5997a9a3f571aa73cf4c8a72523ddf2&query=${searchedMovie}`
+                axios.get(urlApi, {
                     params: {
                         title: searchedMovie,
                     }
                 })
                 .then((response) => {
                     console.log(response.data.results);
-                    this.store.movieList = response.data;
+                    this.store.movieList = response.data.results;
                     console.log(this.store.movieList)
                 })
                 .catch(function (error) {
