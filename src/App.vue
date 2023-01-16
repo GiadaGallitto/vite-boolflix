@@ -33,6 +33,24 @@
                 .catch(function (error) {
                     console.log(error);
                 })
+            },
+
+            getSeries(searchedSerie = "scrubs"){
+                const urlApi = `https://api.themoviedb.org/3/search/tv`
+                axios.get(urlApi, {
+                    params: {
+                        api_key : 'd5997a9a3f571aa73cf4c8a72523ddf2',
+                        query : searchedSerie
+                    }
+                })
+                .then((response) => {
+                    console.log(response.data.results);
+                    this.store.seriesList = response.data.results;
+                    console.log(this.store.seriesList)
+                })
+                .catch(function (error) {
+                    console.log(error);
+                })
             }
         },
 
@@ -49,7 +67,7 @@
         </header>
 
         <main>
-            <AppMain :movies="store.movieList" @searchMovie="getMovie" />
+            <AppMain :movies="store.movieList" :series="store.seriesList" @searchMovie="getMovie" @searchSeries="getSeries" />
         </main>
     </div>
 </template>

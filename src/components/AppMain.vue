@@ -13,8 +13,19 @@
       },
 
       props: [
-        `movies`
-      ]
+        `movies`,
+        `series`
+      ],
+
+      methods: {
+        searchMovie(string){
+          this.$emit(`searchMovie`, string)
+        },
+
+        searchSeries(string){
+          this.$emit(`searchSeries`, string)
+        }
+      }
     }
     </script>
 
@@ -22,7 +33,7 @@
   <div class="main-container">
     <section class="search-part">
       <input placeholder="Scrivi la tua ricerca" type="text" v-model="searchString">
-      <button class="btn btn-primary ms-2" @click="$emit(`searchMovie`, searchString)">Clicca qui</button>
+      <button class="btn btn-primary ms-2" @click="searchMovie(searchString), searchSeries(searchString)">Clicca qui</button>
     </section>
   
     <section class="grid-results">
@@ -31,6 +42,12 @@
       :originalTitle="movieElement.original_title"
       :language="movieElement.original_language"
       :vote="movieElement.vote_average"
+      />
+      <CardComponent v-for="serieElement in series"
+      :title="serieElement.name"
+      :originalTitle="serieElement.original_name"
+      :language="serieElement.original_language"
+      :vote="serieElement.vote_average"
       />
     </section>
   </div>
