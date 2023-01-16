@@ -8,6 +8,7 @@
           store,
           fullStars: [],
           emptyStars: [],
+          hover: false
         }
       },
 
@@ -16,7 +17,8 @@
         originalTitle: String,
         language: String,
         vote: String,
-        cover: String
+        cover: String,
+        overview: String
       },
       methods: {
         getImagePath: function (img) {
@@ -49,14 +51,22 @@
     </script>
 
 <template>
-  <div class="card-element col-4">
+  <div class="card-element col-4" @mouseover="hover = true" @mouseleave="hover = false">
     <img class="poster" :src="`https://image.tmdb.org/t/p/w342/${cover}`" alt="">
-    <h3>{{ title }}</h3>
-    <h5>{{ originalTitle }}</h5>
-    <img class="flag" :src="getImagePath(language)" >
-    <div class="stars">
-      <i v-for="starEL in fullStars" class="fa-solid fa-star"></i>
-      <i v-for="star in emptyStars" class="fa-regular fa-star"></i>
+    <div v-if="hover" class="info">
+      <ul>
+        <li><h6>Titolo: </h6>{{ title }}</li>
+        <li><h6>Titolo originale: </h6>{{ originalTitle }}</li>
+        <li><img class="flag" :src="getImagePath(language)" ></li>
+        <li><h6>Voto: </h6>        
+          <div class="stars d-inline">
+            <i v-for="starEL in fullStars" class="fa-solid fa-star"></i>
+            <i v-for="star in emptyStars" class="fa-regular fa-star"></i>
+          </div>
+        </li>
+        <li><h6>Overview: </h6>{{ overview }}</li>
+      </ul>
+
     </div>
   </div>
 </template>
@@ -64,18 +74,42 @@
 <style lang="scss" scoped>
   .card-element{
     width: calc((100% / 5) - 3rem);
+    height: 100%;
     margin: 1.5rem 1.5rem;
     color: white;
     .poster{
       width: 100%
     };
 
-    .flag{
-      width: 5%;
-    };
+    &:hover{
+      .poster{
+        display: none
+      }
+    }
+    .info{
+      background-color: black;
+      height: 100%;
+      padding: 1.5rem 0;
+      overflow: hidden;
 
-    .stars i{
-      color: rgb(194, 194, 11);
+      ul{
+        list-style-type: none;
+        li{
+          padding-right: 1.5rem;
+          font-weight: 200;
+          h6{
+            display: inline;
+            font-size: 1rem;
+          }
+        }
+      }
+      .flag{
+        width: 20%;
+      };
+  
+      .stars i{
+        color: rgb(194, 194, 11);
+      }
     }
   }
 </style>

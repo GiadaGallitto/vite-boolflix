@@ -29,6 +29,7 @@
       :language="movieElement.original_language"
       :vote="Math.ceil(movieElement.vote_average)"
       :cover="movieElement.poster_path"
+      :overview="movieElement.overview"
       />
       <CardComponent v-for="serieElement in series"
       :title="serieElement.name"
@@ -36,6 +37,7 @@
       :language="serieElement.original_language"
       :vote="Math.ceil(serieElement.vote_average)"
       :cover="serieElement.poster_path"
+      :overview="serieElement.overview"
       />
     </section>
   </div>
@@ -44,6 +46,7 @@
 <style lang="scss" scoped>
   .main-container{
     width: 90%;
+    height: 1000px;
     margin: 2rem auto;
   }
   .grid-results{
