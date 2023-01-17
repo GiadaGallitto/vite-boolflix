@@ -9,7 +9,9 @@
           presentFlags: ["de", "en", "fr", "it", "ja"],
           fullStars: [],
           emptyStars: [],
-          hover: false
+          newGenresList: [],
+          hover: false,
+
         }
       },
 
@@ -44,13 +46,38 @@
           console.log(this.emptyStars.length)
         },
 
-        // getGenres(){
+        getGenres(){
+          const urlApi = `https://api.themoviedb.org/3/genre/movie/list?api_key=d5997a9a3f571aa73cf4c8a72523ddf2&language=en-US`
+                axios.get(urlApi, {
+                    params: {
 
-        // }
+                    }
+                })
+                .then((response) => {
+                    console.log(response.data.genres);
+                    this.store.genresList = response.data.genres;
+                    for(let i=0; i < 5; i++){
+                      if(this.genreIds[i] == this.store.genresList[i]){
+                        this.newGenresList.push(this.store.genresList[i])
+                      }
+                    }
+                    console.log(this.store.genresList)
+                    console.log(this.newGenresList)
+                })
+                .catch(function (error) {
+                    console.log(error);
+                })
+          // for(let i = 0; i < 5; i++){
+          //   if(this.genreIds[i] == this.genresList){
+              
+          //   }
+          // }
+        }
       },
 
       created() {
-        this.getStarsVote(this.vote)
+        this.getStarsVote(this.vote);
+        this.getGenres()
       }
 
       }
@@ -85,7 +112,6 @@
 
 <style lang="scss" scoped>
   .card-element{
-    // width: calc((100% / 5) - 3rem);
     margin: 1.5rem 1.5rem;
     color: white;
     position: relative;
