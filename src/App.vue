@@ -35,7 +35,7 @@
                 })
             },
 
-            getSeries(searchedSerie = "scrubs"){
+            getSeries(searchedSerie = "witcher"){
                 const urlApi = `https://api.themoviedb.org/3/search/tv`
                 axios.get(urlApi, {
                     params: {
@@ -56,6 +56,7 @@
 
         created (){
             this.getMovie();
+            this.getSeries();
         }
     }
 </script>

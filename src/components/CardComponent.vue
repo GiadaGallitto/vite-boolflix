@@ -6,6 +6,7 @@
       data(){
         return {
           store,
+          presentFlags: ["de", "en", "fr", "it", "ja"],
           fullStars: [],
           emptyStars: [],
           hover: false
@@ -18,7 +19,8 @@
         language: String,
         vote: String,
         cover: String,
-        overview: String
+        overview: String,
+        genreIds: Array
       },
       methods: {
         getImagePath: function (img) {
@@ -40,7 +42,11 @@
             this.emptyStars.push(emptyStarElement)
           }
           console.log(this.emptyStars.length)
-        }
+        },
+
+        // getGenres(){
+
+        // }
       },
 
       created() {
@@ -51,14 +57,18 @@
     </script>
 
 <template>
-  <div class="card-element col-4" @mouseover="hover = true" @mouseleave="hover = false">
-    <img class="poster" :src="`https://image.tmdb.org/t/p/w342/${cover}`" alt="">
-
+  <div class="card-element" @mouseover="hover = true" @mouseleave="hover = false">
+    <img v-if="cover != null" class="poster" :src="`https://image.tmdb.org/t/p/w342/${cover}`" alt="">
+    <img v-else class="poster" src="../assets/default-movie.jpg" alt="default img">
     <div v-if="hover" class="info">
       <ul>
         <li><h6>Titolo: </h6>{{ title }}</li>
         <li v-if="title != originalTitle"><h6>Titolo originale: </h6>{{ originalTitle }}</li>
-        <li><img class="flag" :src="getImagePath(language)" ></li>
+        <li>
+          <img v-if="presentFlags.includes(language)" class="flag" 
+          :src="getImagePath(language)" >
+          <span v-else ><h6> Lingua: </h6>{{ language }}</span>
+        </li>
         <li><h6>Voto: </h6>        
           <div class="stars d-inline">
             <i v-for="starEL in fullStars" class="fa-solid fa-star"></i>
@@ -66,6 +76,7 @@
           </div>
         </li>
         <li><h6>Overview: </h6>{{ overview }}</li>
+        <!-- <li>{{ genreIds }}</li> -->
       </ul>
     </div>
 
@@ -74,7 +85,7 @@
 
 <style lang="scss" scoped>
   .card-element{
-    width: calc((100% / 5) - 3rem);
+    // width: calc((100% / 5) - 3rem);
     margin: 1.5rem 1.5rem;
     color: white;
     position: relative;

@@ -31,6 +31,7 @@
           <li>Home</li>
           <li>Serie TV</li>
           <li>Film</li>
+          <li>Categorie</li>
         </ul>
       </nav>
     </div>
@@ -78,6 +79,7 @@
         font-size: 1.5rem;
         color: white;
         margin-right: 1rem;
+        cursor: pointer;
       };
 
       
