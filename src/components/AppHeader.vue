@@ -8,12 +8,12 @@
       },
 
       methods: {
-        searchMovie(string){
-          this.$emit(`searchMovie`, string)
+        searchMovie(userMovie){
+          this.$emit(`searchMovie`, userMovie)
         },
 
-        searchSeries(string){
-          this.$emit(`searchSeries`, string)
+        searchSeries(userSeries){
+          this.$emit(`searchSeries`, userSeries)
         }
       }
 

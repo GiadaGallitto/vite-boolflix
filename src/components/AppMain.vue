@@ -1,5 +1,7 @@
     <script>
     import CardComponent from "./CardComponent.vue"
+    import  { store } from "../store.js"
+    import axios from "axios";
 
     export default {
       components : {
@@ -8,7 +10,8 @@
       
       data(){
         return{
-
+          store,
+          newGenresList: [],
         }
       },
 
@@ -16,6 +19,32 @@
         `movies`,
         `series`
       ],
+
+      methods: {
+        getGenres(){
+          const urlApi = `https://api.themoviedb.org/3/genre/movie/list?api_key=d5997a9a3f571aa73cf4c8a72523ddf2&language=en-US`
+                axios.get(urlApi, {
+                    params: {
+
+                    }
+                })
+                .then((response) => {
+                  for(let i=0; i < 5; i++){
+                    console.log(response.data.genres);
+                    this.store.genresList.push(response.data.genres[i].name)
+                  }
+                  console.log(this.store.genresList)
+                })
+                .catch(function (error) {
+                    console.log(error);
+                })
+
+        }
+      },
+
+      created(){
+        this.getGenres();
+      }
 
     }
     </script>
