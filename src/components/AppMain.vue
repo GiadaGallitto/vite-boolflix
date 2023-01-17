@@ -28,16 +28,19 @@
                     }
                 })
                 .then((response) => {
-                  for(let i=0; i < 5; i++){
                     console.log(response.data.genres);
-                    this.store.genresList.push(response.data.genres[i])
+                    this.store.genresList = response.data.genres
                     console.log(this.store.genresList)
-                  }
                 })
                 .catch(function (error) {
                     console.log(error);
                 })
 
+
+        },
+
+        getActors(){
+          
         }
       },
 

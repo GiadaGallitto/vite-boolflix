@@ -19,7 +19,7 @@
         title: String,
         originalTitle: String,
         language: String,
-        vote: String,
+        vote: Number,
         cover: String,
         overview: String,
         genreIds: Array
@@ -47,20 +47,22 @@
         },
 
         showGenres(){
-          for(let i = 0; i < this.genreIds.length; i++){
-            if(this.store.genresList[i].includes(this.genreIds[i])){
-              this.newGenresList.push(this.store.genresList[i].name)
-            }
-            console.log(this.newGenresList)
-          }
+          console.warn('lunghezza:' , this.store.genresList.length);
 
-          return this.newGenresList;
+          this.store.genresList.forEach(genre => {
+              if (this.genreIds.includes(genre.id)){
+                this.newGenresList.push(genre.name)
+              }
+          });
+          console.log('GENERI', this.newGenresList)
         }
 
       },
 
       created() {
         this.getStarsVote(this.vote);
+
+        setTimeout(this.showGenres, 1000);
       }
 
       }
@@ -70,7 +72,7 @@
   <div class="card-element" @mouseover="hover = true" @mouseleave="hover = false">
     <img v-if="cover != null" class="poster" :src="`https://image.tmdb.org/t/p/w342/${cover}`" alt="">
     <img v-else class="poster" src="../assets/default-movie.jpg" alt="default img">
-    <div v-if="hover" class="info">
+    <div  class="info">
       <ul>
         <li><h6>Titolo: </h6>{{ title }}</li>
         <li v-if="title != originalTitle"><h6>Titolo originale: </h6>{{ originalTitle }}</li>
@@ -87,7 +89,7 @@
         </li>
         <li><h6>Overview: </h6>{{ overview }}</li>
         <li><h6>Generi: </h6> 
-          <!-- <span v-for="genreElement in genreIds"> {{ genreElement }} </span> -->
+          <span v-for="genreElement in newGenresList"> {{ genreElement }},  </span>
         </li>
       </ul>
     </div>
