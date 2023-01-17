@@ -11,7 +11,6 @@
       data(){
         return{
           store,
-          newGenresList: [],
         }
       },
 
@@ -31,9 +30,9 @@
                 .then((response) => {
                   for(let i=0; i < 5; i++){
                     console.log(response.data.genres);
-                    this.store.genresList.push(response.data.genres[i].name)
+                    this.store.genresList.push(response.data.genres[i])
+                    console.log(this.store.genresList)
                   }
-                  console.log(this.store.genresList)
                 })
                 .catch(function (error) {
                     console.log(error);

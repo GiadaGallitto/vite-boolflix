@@ -9,6 +9,7 @@
           presentFlags: ["de", "en", "fr", "it", "ja"],
           fullStars: [],
           emptyStars: [],
+          newGenresList: [],
           hover: false,
 
         }
@@ -45,6 +46,17 @@
           console.log(this.emptyStars.length)
         },
 
+        showGenres(){
+          for(let i = 0; i < this.genreIds.length; i++){
+            if(this.store.genresList[i].includes(this.genreIds[i])){
+              this.newGenresList.push(this.store.genresList[i].name)
+            }
+            console.log(this.newGenresList)
+          }
+
+          return this.newGenresList;
+        }
+
       },
 
       created() {
@@ -74,7 +86,9 @@
           </div>
         </li>
         <li><h6>Overview: </h6>{{ overview }}</li>
-        <!-- <li>{{ genreIds }}</li> -->
+        <li><h6>Generi: </h6> 
+          <!-- <span v-for="genreElement in genreIds"> {{ genreElement }} </span> -->
+        </li>
       </ul>
     </div>
 
