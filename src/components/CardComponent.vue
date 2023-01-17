@@ -10,7 +10,9 @@
           fullStars: [],
           emptyStars: [],
           newGenresList: [],
+          actorList: [],
           hover: false,
+          credits: false
 
         }
       },
@@ -28,6 +30,19 @@
       methods: {
         getImagePath: function (img) {
           return new URL(`../assets/flag-img/${img}.png`, import.meta.url).href;
+        },
+
+        // getHoverEffect(){
+        //   if(this.hover){
+
+        //   }
+        // },
+
+        getCredits(){
+          if(this.credits == false){
+            this.getActor(this.personalId)
+            this.credits == true
+          }
         },
 
         getStarsVote(num){
@@ -50,7 +65,6 @@
         showGenres(){
           console.warn('lunghezza:' , this.store.genresList.length);
 
-
           this.store.genresList.forEach(genre => {
               if (this.genreIds.includes(genre.id)){
                 this.newGenresList.push(genre.name)
@@ -70,9 +84,10 @@
                 .then((response) => {
                     console.log(response.data.cast);
                     for(let i=0; i < 5; i++){
-                      this.store.actorsList.push(response.data.cast[i].name)
+                      let actor = response.data.cast[i].name
+                      this.actorList.push(actor)
+                      console.log(`Lista attori`, this.actorsList)
                     }
-                    console.log(this.store.actorsList)
                 })
                 .catch(function (error) {
                     console.log(error);
@@ -83,7 +98,6 @@
 
       created() {
         this.getStarsVote(this.vote);
-        // this.getActor();
 
         setTimeout(this.showGenres, 1000);
       }
@@ -92,10 +106,10 @@
     </script>
 
 <template>
-  <div class="card-element" @mouseover="hover = true" @mouseleave="hover = false">
+  <div class="card-element" @click="getCredits()" @mouseover="hover = true" @mouseleave="hover = false">
     <img v-if="cover != null" class="poster" :src="`https://image.tmdb.org/t/p/w342/${cover}`" alt="">
     <img v-else class="poster" src="../assets/default-movie.jpg" alt="default img">
-    <div  class="info">
+    <div v-if="hover" class="info">
       <ul>
         <li><h6>Titolo: </h6>{{ title }}</li>
         <li v-if="title != originalTitle"><h6>Titolo originale: </h6>{{ originalTitle }}</li>
@@ -105,7 +119,7 @@
           <span v-else ><h6> Lingua: </h6>{{ language }}</span>
         </li>
         <li><h6>Voto: </h6>        
-          <div class="stars d-inline">
+          <div class="stars">
             <i v-for="starEL in fullStars" class="fa-solid fa-star"></i>
             <i v-for="star in emptyStars" class="fa-regular fa-star"></i>
           </div>
@@ -114,7 +128,8 @@
         <li><h6>Generi: </h6> 
           <span v-for="genreElement in newGenresList"> {{ genreElement }}, </span>
         </li>
-        <li><h6>Attori: </h6>{{ getActor(personalId) }}</li>
+        <li><h6>Attori: </h6>
+          <span v-for="actor in actorList">{{ actor }}, </span></li>
       </ul>
     </div>
 
