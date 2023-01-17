@@ -54,7 +54,8 @@
   <div class="main-container">
     <section class="grid-results row">
       <h2 class="col-12">Film:</h2>
-      <CardComponent class="col-10 col-md-3 col-sm-4 col-lg-2" v-for="movieElement in movies"
+      <CardComponent class="col-10 col-md-3 col-sm-4 col-lg-2" v-for="(movieElement, index) in movies"
+      :index="index"
       :title="movieElement.title"
       :originalTitle="movieElement.original_title"
       :language="movieElement.original_language"

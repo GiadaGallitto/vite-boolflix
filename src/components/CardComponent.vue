@@ -10,14 +10,14 @@
           fullStars: [],
           emptyStars: [],
           newGenresList: [],
-          actorList: [],
+          newActorList: [],
           hover: false,
-          credits: false
 
         }
       },
 
       props: {
+        index: Number,
         title: String,
         originalTitle: String,
         language: String,
@@ -32,16 +32,9 @@
           return new URL(`../assets/flag-img/${img}.png`, import.meta.url).href;
         },
 
-        // getHoverEffect(){
-        //   if(this.hover){
-
-        //   }
-        // },
-
         getCredits(){
-          if(this.credits == false){
-            this.getActor(this.personalId)
-            this.credits == true
+          if( typeof this.store.movieList[this.index].actorList == "undefined"){
+              this.getActor(this.personalId)
           }
         },
 
@@ -63,7 +56,7 @@
         },
 
         showGenres(){
-          console.warn('lunghezza:' , this.store.genresList.length);
+          console.log('lunghezza:' , this.store.genresList.length);
 
           this.store.genresList.forEach(genre => {
               if (this.genreIds.includes(genre.id)){
@@ -83,11 +76,14 @@
                 })
                 .then((response) => {
                     console.log(response.data.cast);
+                    let actorList= [];
                     for(let i=0; i < 5; i++){
                       let actor = response.data.cast[i].name
-                      this.actorList.push(actor)
-                      console.log(`Lista attori`, this.actorsList)
-                    }
+                      actorList.push(actor)
+                      console.log(`Lista attori`, actorList)
+                    };
+                    // this.store.movieList[this.index].actorList = actorList
+                    this.newActorList = actorList;
                 })
                 .catch(function (error) {
                     console.log(error);
@@ -106,7 +102,7 @@
     </script>
 
 <template>
-  <div class="card-element" @click="getCredits()" @mouseover="hover = true" @mouseleave="hover = false">
+  <div class="card-element" @mouseover="hover = true, getCredits()" @mouseleave="hover = false">
     <img v-if="cover != null" class="poster" :src="`https://image.tmdb.org/t/p/w342/${cover}`" alt="">
     <img v-else class="poster" src="../assets/default-movie.jpg" alt="default img">
     <div v-if="hover" class="info">
@@ -129,7 +125,7 @@
           <span v-for="genreElement in newGenresList"> {{ genreElement }}, </span>
         </li>
         <li><h6>Attori: </h6>
-          <span v-for="actor in actorList">{{ actor }}, </span></li>
+          <span v-for="actor in newActorList">{{ actor }}, </span></li>
       </ul>
     </div>
 
