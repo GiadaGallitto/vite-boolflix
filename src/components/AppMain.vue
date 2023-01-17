@@ -36,11 +36,10 @@
                     console.log(error);
                 })
 
-
         },
 
         getActors(){
-          
+
         }
       },
 
@@ -63,6 +62,7 @@
       :cover="movieElement.poster_path"
       :overview="movieElement.overview"
       :genreIds="movieElement.genre_ids"
+      :personalId="movieElement.id"
       />
       <h2 class="col-12">Serie Tv:</h2>
       <CardComponent class="col-10 col-md-3 col-sm-4 col-lg-2" v-for="serieElement in series"
@@ -73,6 +73,7 @@
       :cover="serieElement.poster_path"
       :overview="serieElement.overview"
       :genreIds="serieElement.genre_ids"
+      :personalId="serieElement.id"
       />
     </section>
   </div>

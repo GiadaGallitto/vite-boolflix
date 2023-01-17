@@ -22,7 +22,8 @@
         vote: Number,
         cover: String,
         overview: String,
-        genreIds: Array
+        genreIds: Array,
+        personalId: Number
       },
       methods: {
         getImagePath: function (img) {
@@ -49,18 +50,40 @@
         showGenres(){
           console.warn('lunghezza:' , this.store.genresList.length);
 
+
           this.store.genresList.forEach(genre => {
               if (this.genreIds.includes(genre.id)){
                 this.newGenresList.push(genre.name)
               }
           });
           console.log('GENERI', this.newGenresList)
+
+        },
+
+        getActor(numId){
+          const urlApi = `https://api.themoviedb.org/3/movie/${numId}/credits?api_key=d5997a9a3f571aa73cf4c8a72523ddf2`
+                axios.get(urlApi, {
+                    params: {
+
+                    }
+                })
+                .then((response) => {
+                    console.log(response.data.cast);
+                    for(let i=0; i < 5; i++){
+                      this.store.actorsList.push(response.data.cast[i].name)
+                    }
+                    console.log(this.store.actorsList)
+                })
+                .catch(function (error) {
+                    console.log(error);
+                })
         }
 
       },
 
       created() {
         this.getStarsVote(this.vote);
+        // this.getActor();
 
         setTimeout(this.showGenres, 1000);
       }
@@ -89,8 +112,9 @@
         </li>
         <li><h6>Overview: </h6>{{ overview }}</li>
         <li><h6>Generi: </h6> 
-          <span v-for="genreElement in newGenresList"> {{ genreElement }},  </span>
+          <span v-for="genreElement in newGenresList"> {{ genreElement }}, </span>
         </li>
+        <li><h6>Attori: </h6>{{ getActor(personalId) }}</li>
       </ul>
     </div>
 
